@@ -1,4 +1,5 @@
-﻿using SwitchMonitor.Db;
+﻿using BrightIdeasSoftware;
+using SwitchMonitor.Db;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,10 +44,26 @@ namespace SwitchMonitor
         {
             InitializeComponent();
 
-            PopulateListView();
+            PopulateDevicesListView();
+
+            StatusColumn.AspectToStringConverter = delegate (object row)
+            {
+                var status = (DeviceStatus)row;
+                switch (status)
+                {
+                    case DeviceStatus.Up:
+                        return "תקין";
+                    case DeviceStatus.Down:
+                        return "לא תקין";
+                    default:
+                        return "לא ידוע";
+                }
+            };
+
+            olvEvents.SetObjects(Database.GetConnection().Table<Event>());
         }
 
-        public void PopulateListView()
+        public void PopulateDevicesListView()
         {
             devicesListView.Items.Clear();
             deviceItems = new Dictionary<int, ListViewItem>();
@@ -91,7 +108,7 @@ namespace SwitchMonitor
                 }
 
                 db.Insert(newDevice);
-                PopulateListView();
+                PopulateDevicesListView();
                 DevicePoller.RefreshDevices();
             }
         }
@@ -142,7 +159,36 @@ namespace SwitchMonitor
                     }
                 }
                 DevicePoller.RefreshDevices();
-                PopulateListView();
+                PopulateDevicesListView();
+            }
+        }
+
+        private void FormatEventRow(OLVListItem item)
+        {
+            switch (((Event)item.RowObject).Status)
+            {
+                case DeviceStatus.Up:
+                    item.BackColor = Color.LightGreen;
+                    break;
+                case DeviceStatus.Down:
+                    item.BackColor = Color.FromArgb(255, 100, 100);
+                    break;
+                default:
+                    item.BackColor = Color.Gray;
+                    break;
+            }
+        }
+
+        private void olvEvents_FormatRow(object sender, BrightIdeasSoftware.FormatRowEventArgs e)
+        {
+            FormatEventRow(e.Item);
+        }
+
+        private void olvEvents_ItemsChanged(object sender, BrightIdeasSoftware.ItemsChangedEventArgs e)
+        {
+            foreach (OLVListItem item in olvEvents.Items)
+            {
+                FormatEventRow(item);
             }
         }
     }

@@ -145,6 +145,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ObjectListView\ObjectListView2012.csproj">
+      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
+      <Name>ObjectListView2012</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SwitchMonitor.Db\SwitchMonitor.Db.csproj">
       <Project>{4a29e4e2-9cd3-40a2-9184-f413c7b2a5f2}</Project>
       <Name>SwitchMonitor.Db</Name>
