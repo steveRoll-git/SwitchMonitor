@@ -35,6 +35,7 @@ namespace SwitchMonitor.Db
 
         public string DeviceName { get; set; }
 
+        [Unique]
         public string DeviceAddress { get; set; }
 
         public DeviceStatus Status { get; set; }

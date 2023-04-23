@@ -21,7 +21,7 @@ namespace SwitchMonitor
         /// <summary>
         /// How often to run pings for every device, in milliseconds.
         /// </summary>
-        public static int pollInterval = 0;
+        public static int pollInterval = 1000;
 
         static List<Device> devices;
         static readonly Dictionary<string, DeviceStatus> lastStatuses = new Dictionary<string, DeviceStatus>();
@@ -49,6 +49,26 @@ namespace SwitchMonitor
             }
         }
 
+        private static async Task<DeviceStatusChange> PingDeviceAsync(Device device)
+        {
+            try
+            {
+                var pingReply = await new Ping().SendPingAsync(device.Address);
+                return new DeviceStatusChange() { Device = device, Status = IPStatusToDevice(pingReply.Status) };
+            }
+            catch (Exception)
+            {
+                return new DeviceStatusChange() { Device = device, Status = DeviceStatus.Down };
+            }
+        }
+
+        public static async Task<List<DeviceStatusChange>> PingAllDevicesAsync()
+        {
+            var pingTasks = devices.Select(d => PingDeviceAsync(d));
+            var results = await Task.WhenAll(pingTasks);
+            return results.ToList();
+        }
+
         public static void PollDevices()
         {
             // only a single instance of the device poller should be running
@@ -63,8 +83,12 @@ namespace SwitchMonitor
             {
                 while (true)
                 {
-                    foreach (var device in devices)
+                    var pingResults = PingAllDevicesAsync().Result;
+
+                    foreach (var result in pingResults)
                     {
+                        var device = result.Device;
+
                         if (!lastStatuses.ContainsKey(device.Address))
                         {
                             using (var db = Database.GetConnection())
@@ -72,15 +96,8 @@ namespace SwitchMonitor
                                 lastStatuses[device.Address] = db.GetLastDeviceStatus(device);
                             }
                         }
-                        DeviceStatus currentStatus = DeviceStatus.Unknown;
-                        try
-                        {
-                            currentStatus = IPStatusToDevice(pinger.Send(device.Address).Status);
-                        }
-                        catch (Exception)
-                        {
-                            currentStatus = DeviceStatus.Down;
-                        }
+
+                        var currentStatus = result.Status;
 
                         if (currentStatus != lastStatuses[device.Address])
                         {
@@ -89,7 +106,7 @@ namespace SwitchMonitor
                             {
                                 db.Insert(newEvent);
                                 lastStatuses[device.Address] = currentStatus;
-                                statusChangeQueue.Enqueue(new DeviceStatusChange() { Device = device, Status = currentStatus });
+                                statusChangeQueue.Enqueue(result);
                             }
                         }
                     }
