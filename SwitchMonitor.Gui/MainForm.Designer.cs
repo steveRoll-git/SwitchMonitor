@@ -45,18 +45,11 @@ namespace SwitchMonitor
             this.editToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.olvEvents = new BrightIdeasSoftware.ObjectListView();
-            this.DateColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.DeviceNameColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.StatusColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.AcknowledgeColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.menuStrip1.SuspendLayout();
             this.deviceContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
-            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.olvEvents)).BeginInit();
             this.SuspendLayout();
             // 
             // devicesListView
@@ -167,72 +160,11 @@ namespace SwitchMonitor
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.olvEvents);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer.Panel2MinSize = 70;
             this.splitContainer.Size = new System.Drawing.Size(854, 514);
             this.splitContainer.SplitterDistance = 500;
             this.splitContainer.TabIndex = 2;
-            // 
-            // olvEvents
-            // 
-            this.olvEvents.AllColumns.Add(this.DateColumn);
-            this.olvEvents.AllColumns.Add(this.DeviceNameColumn);
-            this.olvEvents.AllColumns.Add(this.StatusColumn);
-            this.olvEvents.AllColumns.Add(this.AcknowledgeColumn);
-            this.olvEvents.CellEditUseWholeCell = false;
-            this.olvEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.DateColumn,
-            this.DeviceNameColumn,
-            this.StatusColumn,
-            this.AcknowledgeColumn});
-            this.olvEvents.Cursor = System.Windows.Forms.Cursors.Default;
-            this.olvEvents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.olvEvents.FullRowSelect = true;
-            this.olvEvents.HideSelection = false;
-            this.olvEvents.Location = new System.Drawing.Point(0, 0);
-            this.olvEvents.Name = "olvEvents";
-            this.olvEvents.RightToLeftLayout = true;
-            this.olvEvents.Size = new System.Drawing.Size(350, 514);
-            this.olvEvents.TabIndex = 0;
-            this.olvEvents.UseCellFormatEvents = true;
-            this.olvEvents.UseCompatibleStateImageBehavior = false;
-            this.olvEvents.View = System.Windows.Forms.View.Details;
-            this.olvEvents.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.olvEvents_ButtonClick);
-            this.olvEvents.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.olvEvents_FormatRow);
-            this.olvEvents.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.olvEvents_ItemsChanged);
-            // 
-            // DateColumn
-            // 
-            this.DateColumn.AspectName = "Time";
-            this.DateColumn.Groupable = false;
-            this.DateColumn.Text = "תאריך";
-            this.DateColumn.Width = 124;
-            // 
-            // DeviceNameColumn
-            // 
-            this.DeviceNameColumn.AspectName = "DeviceName";
-            this.DeviceNameColumn.Groupable = false;
-            this.DeviceNameColumn.Text = "שם רכיב";
-            this.DeviceNameColumn.Width = 117;
-            // 
-            // StatusColumn
-            // 
-            this.StatusColumn.AspectName = "Status";
-            this.StatusColumn.AspectToStringFormat = "{0}";
-            this.StatusColumn.Text = "מצב";
-            this.StatusColumn.Width = 52;
-            // 
-            // AcknowledgeColumn
-            // 
-            this.AcknowledgeColumn.AspectName = "DeviceName";
-            this.AcknowledgeColumn.AspectToStringFormat = "✔";
-            this.AcknowledgeColumn.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
-            this.AcknowledgeColumn.FillsFreeSpace = true;
-            this.AcknowledgeColumn.Groupable = false;
-            this.AcknowledgeColumn.IsButton = true;
-            this.AcknowledgeColumn.Sortable = false;
-            this.AcknowledgeColumn.Text = "אוקיי";
             // 
             // MainForm
             // 
@@ -251,10 +183,8 @@ namespace SwitchMonitor
             this.menuStrip1.PerformLayout();
             this.deviceContextMenu.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
-            this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.olvEvents)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,11 +204,6 @@ namespace SwitchMonitor
         private System.Windows.Forms.ToolStripMenuItem editToolStripItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripItem;
         private System.Windows.Forms.SplitContainer splitContainer;
-        private BrightIdeasSoftware.ObjectListView olvEvents;
-        private BrightIdeasSoftware.OLVColumn DateColumn;
-        private BrightIdeasSoftware.OLVColumn DeviceNameColumn;
-        private BrightIdeasSoftware.OLVColumn StatusColumn;
-        private BrightIdeasSoftware.OLVColumn AcknowledgeColumn;
     }
 }
 

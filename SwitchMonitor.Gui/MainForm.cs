@@ -46,21 +46,12 @@ namespace SwitchMonitor
 
             PopulateDevicesListView();
 
-            StatusColumn.AspectToStringConverter = delegate (object row)
+            splitContainer.Panel2.Controls.Add(new EventsOLV(db => db.Table<Event>().Where(e => !e.Acknowledged), EventsOLV.EventColumns.AllWithButton)
             {
-                var status = (DeviceStatus)row;
-                switch (status)
-                {
-                    case DeviceStatus.Up:
-                        return "תקין";
-                    case DeviceStatus.Down:
-                        return "לא תקין";
-                    default:
-                        return "לא ידוע";
-                }
-            };
-
-            UpdateEventItems();
+                Dock = DockStyle.Fill,
+                RightToLeft = RightToLeft.Yes,
+                RightToLeftLayout = true,
+            });
         }
 
         public void PopulateDevicesListView()
@@ -78,14 +69,6 @@ namespace SwitchMonitor
                     item.Group = DeviceStatusGroup(status);
                     deviceItems[device.Id] = item;
                 }
-            }
-        }
-
-        private void UpdateEventItems()
-        {
-            using (var db = Database.GetConnection())
-            {
-                olvEvents.SetObjects(db.Table<Event>().Where(e => e.Acknowledged == null || !e.Acknowledged));
             }
         }
 
@@ -168,46 +151,6 @@ namespace SwitchMonitor
                 }
                 DevicePoller.RefreshDevices();
                 PopulateDevicesListView();
-            }
-        }
-
-        private void FormatEventRow(OLVListItem item)
-        {
-            switch (((Event)item.RowObject).Status)
-            {
-                case DeviceStatus.Up:
-                    item.BackColor = Color.LightGreen;
-                    break;
-                case DeviceStatus.Down:
-                    item.BackColor = Color.FromArgb(255, 100, 100);
-                    break;
-                default:
-                    item.BackColor = Color.Gray;
-                    break;
-            }
-        }
-
-        private void olvEvents_FormatRow(object sender, FormatRowEventArgs e)
-        {
-            FormatEventRow(e.Item);
-        }
-
-        private void olvEvents_ItemsChanged(object sender, ItemsChangedEventArgs e)
-        {
-            foreach (OLVListItem item in olvEvents.Items)
-            {
-                FormatEventRow(item);
-            }
-        }
-
-        private void olvEvents_ButtonClick(object sender, CellClickEventArgs e)
-        {
-            using (var db = Database.GetConnection())
-            {
-                var theEvent = (Event)e.Model;
-                theEvent.Acknowledged = true;
-                db.Update(theEvent);
-                UpdateEventItems();
             }
         }
     }

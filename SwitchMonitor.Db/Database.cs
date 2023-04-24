@@ -43,6 +43,8 @@ namespace SwitchMonitor.Db
         [NotNull]
         public bool Acknowledged { get; set; }
 
+        public DateTime AcknowledgedAt { get; set; }
+
         public Event(DateTime time, Device device, DeviceStatus status)
         {
             Time = time;
@@ -56,6 +58,12 @@ namespace SwitchMonitor.Db
         public Event()
         {
 
+        }
+
+        public void Acknowledge()
+        {
+            Acknowledged = true;
+            AcknowledgedAt = DateTime.Now;
         }
     }
 
