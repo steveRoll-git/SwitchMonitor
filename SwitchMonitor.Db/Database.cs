@@ -20,6 +20,7 @@ namespace SwitchMonitor.Db
 
         public string Name { get; set; }
 
+        [Unique]
         public string Address { get; set; }
     }
 
@@ -35,7 +36,6 @@ namespace SwitchMonitor.Db
 
         public string DeviceName { get; set; }
 
-        [Unique]
         public string DeviceAddress { get; set; }
 
         public DeviceStatus Status { get; set; }
