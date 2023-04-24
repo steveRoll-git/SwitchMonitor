@@ -1,13 +1,7 @@
-﻿using BrightIdeasSoftware;
-using SwitchMonitor.Db;
+﻿using SwitchMonitor.Db;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SwitchMonitor
@@ -42,6 +36,8 @@ namespace SwitchMonitor
 
         private readonly EventsOLV eventsOLV;
 
+        private readonly ImageList devicesImageList;
+
         public MainForm()
         {
             InitializeComponent();
@@ -54,6 +50,13 @@ namespace SwitchMonitor
                 RightToLeft = RightToLeft.Yes,
                 RightToLeftLayout = true,
             };
+
+            devicesImageList = new ImageList() { ImageSize = new Size(64, 64) };
+            devicesImageList.Images.Add("deviceUp", Properties.Resources.deviceUp);
+            devicesImageList.Images.Add("deviceDown", Properties.Resources.deviceDown);
+            devicesImageList.Images.Add("deviceUnknown", Properties.Resources.deviceUnknown);
+
+            devicesListView.LargeImageList = devicesImageList;
 
             eventsGroupBox.Controls.Add(this.eventsOLV);
         }

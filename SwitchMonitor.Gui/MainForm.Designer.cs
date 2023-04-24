@@ -32,9 +32,7 @@ namespace SwitchMonitor
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.devicesListView = new System.Windows.Forms.ListView();
-            this.devicesImageList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.רכיביםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +65,6 @@ namespace SwitchMonitor
             listViewGroup1,
             listViewGroup2});
             this.devicesListView.HideSelection = false;
-            this.devicesListView.LargeImageList = this.devicesImageList;
             this.devicesListView.Location = new System.Drawing.Point(3, 19);
             this.devicesListView.Name = "devicesListView";
             this.devicesListView.RightToLeftLayout = true;
@@ -75,14 +72,6 @@ namespace SwitchMonitor
             this.devicesListView.TabIndex = 0;
             this.devicesListView.UseCompatibleStateImageBehavior = false;
             this.devicesListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.devicesListView_MouseClick);
-            // 
-            // devicesImageList
-            // 
-            this.devicesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("devicesImageList.ImageStream")));
-            this.devicesImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.devicesImageList.Images.SetKeyName(0, "deviceUp");
-            this.devicesImageList.Images.SetKeyName(1, "deviceDown");
-            this.devicesImageList.Images.SetKeyName(2, "deviceUnknown");
             // 
             // menuStrip1
             // 
@@ -107,7 +96,7 @@ namespace SwitchMonitor
             // addDeviceMenuItem
             // 
             this.addDeviceMenuItem.Name = "addDeviceMenuItem";
-            this.addDeviceMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addDeviceMenuItem.Size = new System.Drawing.Size(136, 22);
             this.addDeviceMenuItem.Text = "הוסף רכיב...";
             this.addDeviceMenuItem.Click += new System.EventHandler(this.addDeviceMenuItem_Click);
             // 
@@ -225,7 +214,6 @@ namespace SwitchMonitor
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem רכיביםToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addDeviceMenuItem;
-        private System.Windows.Forms.ImageList devicesImageList;
         private System.Windows.Forms.Timer statusChangeTimer;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip deviceContextMenu;
