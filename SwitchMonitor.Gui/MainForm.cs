@@ -40,18 +40,22 @@ namespace SwitchMonitor
 
         private Dictionary<int, ListViewItem> deviceItems;
 
+        private readonly EventsOLV eventsOLV;
+
         public MainForm()
         {
             InitializeComponent();
 
             PopulateDevicesListView();
 
-            eventsGroupBox.Controls.Add(new EventsOLV(db => db.Table<Event>().Where(e => !e.Acknowledged), EventsOLV.EventColumns.AllWithButton)
+            this.eventsOLV = new EventsOLV(db => db.Table<Event>().Where(e => !e.Acknowledged), EventsOLV.EventColumns.AllWithButton)
             {
                 Dock = DockStyle.Fill,
                 RightToLeft = RightToLeft.Yes,
                 RightToLeftLayout = true,
-            });
+            };
+
+            eventsGroupBox.Controls.Add(this.eventsOLV);
         }
 
         public void PopulateDevicesListView()
@@ -111,6 +115,8 @@ namespace SwitchMonitor
                 var item = deviceItems[change.Device.Id];
                 item.Group = DeviceStatusGroup(change.Status);
                 item.ImageKey = DeviceStatusImageKey(change.Status);
+
+                eventsOLV.UpdateItems();
             }
         }
 
