@@ -162,5 +162,26 @@ namespace SwitchMonitor
                 PopulateDevicesListView();
             }
         }
+
+        private void OpenDeviceInfo(Device device)
+        {
+            new DeviceInfoForm(device).ShowDialog(this);
+        }
+
+        private void devicesListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (devicesListView.SelectedItems.Count == 1)
+            {
+                OpenDeviceInfo((Device)devicesListView.SelectedItems[0].Tag);
+            }
+        }
+
+        private void showInfoToolStripItem_Click(object sender, EventArgs e)
+        {
+            if (devicesListView.SelectedItems.Count == 1)
+            {
+                OpenDeviceInfo((Device)devicesListView.SelectedItems[0].Tag);
+            }
+        }
     }
 }

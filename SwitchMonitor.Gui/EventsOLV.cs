@@ -12,10 +12,10 @@ namespace SwitchMonitor
         [Flags]
         public enum EventColumns
         {
-            Date,
-            DeviceName,
-            Status,
-            AcknowledgeButton,
+            Date = 0x1,
+            DeviceName = 0x2,
+            Status = 0x4,
+            AcknowledgeButton = 0x8,
             All = Date | DeviceName | Status,
             AllWithButton = Date | DeviceName | Status | AcknowledgeButton,
         }
