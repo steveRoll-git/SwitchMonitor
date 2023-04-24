@@ -45,11 +45,15 @@ namespace SwitchMonitor
             this.editToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.devicesGroupBox = new System.Windows.Forms.GroupBox();
+            this.eventsGroupBox = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.deviceContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            this.devicesGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // devicesListView
@@ -64,10 +68,10 @@ namespace SwitchMonitor
             listViewGroup2});
             this.devicesListView.HideSelection = false;
             this.devicesListView.LargeImageList = this.devicesImageList;
-            this.devicesListView.Location = new System.Drawing.Point(0, 0);
+            this.devicesListView.Location = new System.Drawing.Point(3, 19);
             this.devicesListView.Name = "devicesListView";
             this.devicesListView.RightToLeftLayout = true;
-            this.devicesListView.Size = new System.Drawing.Size(500, 514);
+            this.devicesListView.Size = new System.Drawing.Size(522, 492);
             this.devicesListView.TabIndex = 0;
             this.devicesListView.UseCompatibleStateImageBehavior = false;
             this.devicesListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.devicesListView_MouseClick);
@@ -82,6 +86,7 @@ namespace SwitchMonitor
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.רכיביםToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -102,7 +107,7 @@ namespace SwitchMonitor
             // addDeviceMenuItem
             // 
             this.addDeviceMenuItem.Name = "addDeviceMenuItem";
-            this.addDeviceMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addDeviceMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addDeviceMenuItem.Text = "הוסף רכיב...";
             this.addDeviceMenuItem.Click += new System.EventHandler(this.addDeviceMenuItem_Click);
             // 
@@ -154,17 +159,39 @@ namespace SwitchMonitor
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.devicesListView);
+            this.splitContainer.Panel1.Controls.Add(this.devicesGroupBox);
             this.splitContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer.Panel1MinSize = 70;
             // 
             // splitContainer.Panel2
             // 
+            this.splitContainer.Panel2.Controls.Add(this.eventsGroupBox);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer.Panel2MinSize = 70;
             this.splitContainer.Size = new System.Drawing.Size(854, 514);
-            this.splitContainer.SplitterDistance = 500;
+            this.splitContainer.SplitterDistance = 528;
             this.splitContainer.TabIndex = 2;
+            // 
+            // devicesGroupBox
+            // 
+            this.devicesGroupBox.Controls.Add(this.devicesListView);
+            this.devicesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.devicesGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.devicesGroupBox.Name = "devicesGroupBox";
+            this.devicesGroupBox.Size = new System.Drawing.Size(528, 514);
+            this.devicesGroupBox.TabIndex = 1;
+            this.devicesGroupBox.TabStop = false;
+            this.devicesGroupBox.Text = "רשימת רכיבים";
+            // 
+            // eventsGroupBox
+            // 
+            this.eventsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eventsGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.eventsGroupBox.Name = "eventsGroupBox";
+            this.eventsGroupBox.Size = new System.Drawing.Size(322, 514);
+            this.eventsGroupBox.TabIndex = 0;
+            this.eventsGroupBox.TabStop = false;
+            this.eventsGroupBox.Text = "אירועים אחרונים";
             // 
             // MainForm
             // 
@@ -183,8 +210,10 @@ namespace SwitchMonitor
             this.menuStrip1.PerformLayout();
             this.deviceContextMenu.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            this.devicesGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,6 +233,8 @@ namespace SwitchMonitor
         private System.Windows.Forms.ToolStripMenuItem editToolStripItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripItem;
         private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.GroupBox devicesGroupBox;
+        private System.Windows.Forms.GroupBox eventsGroupBox;
     }
 }
 

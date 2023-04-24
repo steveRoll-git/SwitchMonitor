@@ -46,7 +46,7 @@ namespace SwitchMonitor
 
             PopulateDevicesListView();
 
-            splitContainer.Panel2.Controls.Add(new EventsOLV(db => db.Table<Event>().Where(e => !e.Acknowledged), EventsOLV.EventColumns.AllWithButton)
+            eventsGroupBox.Controls.Add(new EventsOLV(db => db.Table<Event>().Where(e => !e.Acknowledged), EventsOLV.EventColumns.AllWithButton)
             {
                 Dock = DockStyle.Fill,
                 RightToLeft = RightToLeft.Yes,
