@@ -30,8 +30,8 @@ namespace SwitchMonitor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.devicesListView = new System.Windows.Forms.ListView();
             this.devicesImageList = new System.Windows.Forms.ImageList(this.components);
@@ -62,13 +62,13 @@ namespace SwitchMonitor
             // devicesListView
             // 
             this.devicesListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewGroup3.Header = "רכיבים תקולים";
-            listViewGroup3.Name = "DevicesDown";
-            listViewGroup4.Header = "רכיבים תקינים";
-            listViewGroup4.Name = "DevicesUp";
+            listViewGroup1.Header = "רכיבים תקולים";
+            listViewGroup1.Name = "DevicesDown";
+            listViewGroup2.Header = "רכיבים תקינים";
+            listViewGroup2.Name = "DevicesUp";
             this.devicesListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3,
-            listViewGroup4});
+            listViewGroup1,
+            listViewGroup2});
             this.devicesListView.HideSelection = false;
             this.devicesListView.LargeImageList = this.devicesImageList;
             this.devicesListView.Location = new System.Drawing.Point(0, 0);
@@ -198,6 +198,7 @@ namespace SwitchMonitor
             this.olvEvents.UseCellFormatEvents = true;
             this.olvEvents.UseCompatibleStateImageBehavior = false;
             this.olvEvents.View = System.Windows.Forms.View.Details;
+            this.olvEvents.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.olvEvents_ButtonClick);
             this.olvEvents.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.olvEvents_FormatRow);
             this.olvEvents.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.olvEvents_ItemsChanged);
             // 

@@ -40,6 +40,9 @@ namespace SwitchMonitor.Db
 
         public DeviceStatus Status { get; set; }
 
+        [NotNull]
+        public bool Acknowledged { get; set; }
+
         public Event(DateTime time, Device device, DeviceStatus status)
         {
             Time = time;
@@ -47,6 +50,7 @@ namespace SwitchMonitor.Db
             DeviceId = device.Id;
             DeviceName = device.Name;
             DeviceAddress = device.Address;
+            Acknowledged = false;
         }
 
         public Event()

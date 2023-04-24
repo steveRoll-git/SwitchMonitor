@@ -60,7 +60,7 @@ namespace SwitchMonitor
                 }
             };
 
-            olvEvents.SetObjects(Database.GetConnection().Table<Event>());
+            UpdateEventItems();
         }
 
         public void PopulateDevicesListView()
@@ -78,6 +78,14 @@ namespace SwitchMonitor
                     item.Group = DeviceStatusGroup(status);
                     deviceItems[device.Id] = item;
                 }
+            }
+        }
+
+        private void UpdateEventItems()
+        {
+            using (var db = Database.GetConnection())
+            {
+                olvEvents.SetObjects(db.Table<Event>().Where(e => e.Acknowledged == null || !e.Acknowledged));
             }
         }
 
@@ -179,16 +187,27 @@ namespace SwitchMonitor
             }
         }
 
-        private void olvEvents_FormatRow(object sender, BrightIdeasSoftware.FormatRowEventArgs e)
+        private void olvEvents_FormatRow(object sender, FormatRowEventArgs e)
         {
             FormatEventRow(e.Item);
         }
 
-        private void olvEvents_ItemsChanged(object sender, BrightIdeasSoftware.ItemsChangedEventArgs e)
+        private void olvEvents_ItemsChanged(object sender, ItemsChangedEventArgs e)
         {
             foreach (OLVListItem item in olvEvents.Items)
             {
                 FormatEventRow(item);
+            }
+        }
+
+        private void olvEvents_ButtonClick(object sender, CellClickEventArgs e)
+        {
+            using (var db = Database.GetConnection())
+            {
+                var theEvent = (Event)e.Model;
+                theEvent.Acknowledged = true;
+                db.Update(theEvent);
+                UpdateEventItems();
             }
         }
     }
