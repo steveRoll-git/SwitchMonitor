@@ -89,6 +89,11 @@ namespace SwitchMonitor
                     {
                         var device = result.Device;
 
+                        if (device.Address == null)
+                        {
+                            continue;
+                        }
+
                         if (!lastStatuses.ContainsKey(device.Address))
                         {
                             using (var db = Database.GetConnection())
