@@ -39,6 +39,8 @@
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.revertButton = new System.Windows.Forms.ToolStripButton();
             this.deviceIcon = new System.Windows.Forms.PictureBox();
+            this.descriptionBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceIcon)).BeginInit();
@@ -51,8 +53,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.86302F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.13698F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.deviceAddressBox, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.descriptionBox, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 131);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -165,6 +169,29 @@
             this.deviceIcon.TabIndex = 0;
             this.deviceIcon.TabStop = false;
             // 
+            // descriptionBox
+            // 
+            this.descriptionBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.descriptionBox.Location = new System.Drawing.Point(80, 33);
+            this.descriptionBox.Multiline = true;
+            this.descriptionBox.Name = "descriptionBox";
+            this.descriptionBox.ReadOnly = true;
+            this.tableLayoutPanel1.SetRowSpan(this.descriptionBox, 3);
+            this.descriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.descriptionBox.Size = new System.Drawing.Size(170, 149);
+            this.descriptionBox.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(256, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 30);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "הערות";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // DeviceInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -205,5 +232,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton saveButton;
         private System.Windows.Forms.ToolStripButton revertButton;
+        private System.Windows.Forms.TextBox descriptionBox;
+        private System.Windows.Forms.Label label2;
     }
 }

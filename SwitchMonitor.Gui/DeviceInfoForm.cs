@@ -65,6 +65,7 @@ namespace SwitchMonitor
         {
             deviceNameBox.Text = device.Name;
             deviceAddressBox.Text = device.Address;
+            descriptionBox.Text = device.Description;
         }
 
         public void SetEditMode(bool editMode)
@@ -79,6 +80,7 @@ namespace SwitchMonitor
 
             deviceNameBox.ReadOnly = !editMode;
             deviceAddressBox.ReadOnly = !editMode;
+            descriptionBox.ReadOnly = !editMode;
         }
 
         private void SaveData()
@@ -114,6 +116,7 @@ namespace SwitchMonitor
 
                 device.Address = deviceAddressBox.Text;
                 device.Name = deviceNameBox.Text;
+                device.Description = descriptionBox.Text;
 
                 if (isNewDevice)
                 {
