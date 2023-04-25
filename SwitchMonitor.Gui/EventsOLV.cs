@@ -15,8 +15,10 @@ namespace SwitchMonitor
             Date = 0x1,
             DeviceName = 0x2,
             Status = 0x4,
-            AcknowledgeButton = 0x8,
+            DateAcknowledged = 0x8,
+            AcknowledgeButton = 0xf1,
             All = Date | DeviceName | Status,
+            AllDetailed = Date | DeviceName | Status | DateAcknowledged,
             AllWithButton = Date | DeviceName | Status | AcknowledgeButton,
         }
 
@@ -58,6 +60,26 @@ namespace SwitchMonitor
                                 return "לא תקין";
                             default:
                                 return "לא ידוע";
+                        }
+                    }
+                });
+            }
+
+            if (eventColumns.HasFlag(EventColumns.DateAcknowledged))
+            {
+                this.Columns.Add(new OLVColumn("סומן ב-✓ בתאריך", "AcknowledgedAt")
+                {
+                    Width = 130,
+                    AspectGetter = (e) =>
+                    {
+                        var theEvent = (Event)e;
+                        if (theEvent.Acknowledged)
+                        {
+                            return theEvent.AcknowledgedAt;
+                        }
+                        else
+                        {
+                            return "---";
                         }
                     }
                 });

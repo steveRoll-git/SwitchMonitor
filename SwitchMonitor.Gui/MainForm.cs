@@ -194,5 +194,10 @@ namespace SwitchMonitor
                 OpenDeviceInfo((Device)devicesListView.SelectedItems[0].Tag);
             }
         }
+
+        private void showAllEventsItem_Click(object sender, EventArgs e)
+        {
+            new EventExplorer().ShowDialog(this);
+        }
     }
 }

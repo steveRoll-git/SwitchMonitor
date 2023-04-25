@@ -109,6 +109,12 @@
       <DependentUpon>DeviceInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DevicePoller.cs" />
+    <Compile Include="EventExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventExplorer.Designer.cs">
+      <DependentUpon>EventExplorer.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventsOLV.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DeviceInfoForm.resx">
       <DependentUpon>DeviceInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventExplorer.resx">
+      <DependentUpon>EventExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
