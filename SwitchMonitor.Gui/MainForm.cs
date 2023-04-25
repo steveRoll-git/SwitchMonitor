@@ -95,6 +95,11 @@ namespace SwitchMonitor
             }
         }
 
+        private void UpdateDeviceStatusGroup(SQLiteConnection db, Device device)
+        {
+            deviceItems[device.Id].Group = DeviceStatusGroup(db.GetLastDeviceStatus(device));
+        }
+
         private void UpdateDeviceGroup(SQLiteConnection db, Device device)
         {
             if (db.HasUnacknowledgedEvents(device))
@@ -103,7 +108,7 @@ namespace SwitchMonitor
             }
             else
             {
-                deviceItems[device.Id].Group = DeviceStatusGroup(db.GetLastDeviceStatus(device));
+                UpdateDeviceStatusGroup(db, device);
             }
         }
 
@@ -198,6 +203,21 @@ namespace SwitchMonitor
         private void showAllEventsItem_Click(object sender, EventArgs e)
         {
             new EventExplorer().ShowDialog(this);
+        }
+
+        private void acknowledgeAllButton_Click(object sender, EventArgs _)
+        {
+            using (var db = Database.GetConnection())
+            {
+                var unacknowledged = db.Table<Event>().Where(e => !e.Acknowledged).ToList();
+                foreach (var e in unacknowledged)
+                {
+                    e.Acknowledge();
+                    UpdateDeviceStatusGroup(db, db.Find<Device>(e.DeviceId));
+                }
+                db.UpdateAll(unacknowledged);
+                eventsOLV.UpdateItems();
+            }
         }
     }
 }
