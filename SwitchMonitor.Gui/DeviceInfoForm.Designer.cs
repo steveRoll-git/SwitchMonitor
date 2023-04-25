@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.deviceAddressBox = new System.Windows.Forms.TextBox();
+            this.descriptionBox = new System.Windows.Forms.TextBox();
             this.eventsGroupBox = new System.Windows.Forms.GroupBox();
             this.deviceNameBox = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -39,8 +41,6 @@
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.revertButton = new System.Windows.Forms.ToolStripButton();
             this.deviceIcon = new System.Windows.Forms.PictureBox();
-            this.descriptionBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceIcon)).BeginInit();
@@ -67,6 +67,17 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(314, 185);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(256, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 30);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "הערות";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -88,6 +99,18 @@
             this.deviceAddressBox.Size = new System.Drawing.Size(170, 23);
             this.deviceAddressBox.TabIndex = 1;
             this.deviceAddressBox.Click += new System.EventHandler(this.deviceAddressBox_Click);
+            // 
+            // descriptionBox
+            // 
+            this.descriptionBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.descriptionBox.Location = new System.Drawing.Point(80, 33);
+            this.descriptionBox.Multiline = true;
+            this.descriptionBox.Name = "descriptionBox";
+            this.descriptionBox.ReadOnly = true;
+            this.tableLayoutPanel1.SetRowSpan(this.descriptionBox, 3);
+            this.descriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.descriptionBox.Size = new System.Drawing.Size(170, 149);
+            this.descriptionBox.TabIndex = 2;
             // 
             // eventsGroupBox
             // 
@@ -169,29 +192,6 @@
             this.deviceIcon.TabIndex = 0;
             this.deviceIcon.TabStop = false;
             // 
-            // descriptionBox
-            // 
-            this.descriptionBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.descriptionBox.Location = new System.Drawing.Point(80, 33);
-            this.descriptionBox.Multiline = true;
-            this.descriptionBox.Name = "descriptionBox";
-            this.descriptionBox.ReadOnly = true;
-            this.tableLayoutPanel1.SetRowSpan(this.descriptionBox, 3);
-            this.descriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.descriptionBox.Size = new System.Drawing.Size(170, 149);
-            this.descriptionBox.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(256, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 30);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "הערות";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // DeviceInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -209,6 +209,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "פרטי רכיב";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeviceInfoForm_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

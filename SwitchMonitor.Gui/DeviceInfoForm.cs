@@ -83,7 +83,7 @@ namespace SwitchMonitor
             descriptionBox.ReadOnly = !editMode;
         }
 
-        private void SaveData()
+        private bool SaveData()
         {
             if (string.IsNullOrWhiteSpace(deviceAddressBox.Text) || string.IsNullOrWhiteSpace(deviceNameBox.Text))
             {
@@ -94,7 +94,7 @@ namespace SwitchMonitor
                                 icon: MessageBoxIcon.Warning,
                                 defaultButton: MessageBoxDefaultButton.Button1,
                                 options: MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                return;
+                return false;
             }
 
             var address = deviceAddressBox.Text;
@@ -111,7 +111,7 @@ namespace SwitchMonitor
                                     icon: MessageBoxIcon.Warning,
                                     defaultButton: MessageBoxDefaultButton.Button1,
                                     options: MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    return;
+                    return false;
                 }
 
                 device.Address = deviceAddressBox.Text;
@@ -131,6 +131,8 @@ namespace SwitchMonitor
 
             ChangesHappened = true;
             SetEditMode(false);
+
+            return true;
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -154,6 +156,30 @@ namespace SwitchMonitor
             if (deviceAddressBox.ReadOnly)
             {
                 deviceAddressBox.SelectAll();
+            }
+        }
+
+        private void DeviceInfoForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (inEditMode)
+            {
+                var result = MessageBox.Show(this,
+                                         text: "לשמור את השינויים לרכיב?",
+                                         caption: "שינויים",
+                                         buttons: MessageBoxButtons.YesNoCancel,
+                                         icon: MessageBoxIcon.Information,
+                                         defaultButton: MessageBoxDefaultButton.Button1,
+                                         options: MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
+                if (result == DialogResult.Yes)
+                {
+                    var success = SaveData();
+                    e.Cancel = !success;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
             }
         }
     }
