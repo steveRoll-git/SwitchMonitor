@@ -1,4 +1,5 @@
-﻿using SwitchMonitor.Db;
+﻿using SQLite;
+using SwitchMonitor.Db;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -50,6 +51,7 @@ namespace SwitchMonitor
                 RightToLeft = RightToLeft.Yes,
                 RightToLeftLayout = true,
             };
+            eventsOLV.ButtonClick += EventsOLV_ButtonClick;
 
             devicesImageList = new ImageList() { ImageSize = new Size(64, 64) };
             devicesImageList.Images.Add("deviceUp", Properties.Resources.deviceUp);
@@ -59,6 +61,19 @@ namespace SwitchMonitor
             devicesListView.LargeImageList = devicesImageList;
 
             eventsGroupBox.Controls.Add(this.eventsOLV);
+        }
+
+        private void EventsOLV_ButtonClick(object sender, BrightIdeasSoftware.CellClickEventArgs e)
+        {
+            var theEvent = (Event)e.Model;
+            if (!deviceItems.ContainsKey(theEvent.DeviceId))
+            {
+                return;
+            }
+            using (var db = Database.GetConnection())
+            {
+                UpdateDeviceGroup(db, (Device)deviceItems[theEvent.DeviceId].Tag);
+            }
         }
 
         public void PopulateDevicesListView()
@@ -73,9 +88,22 @@ namespace SwitchMonitor
                     var status = db.GetLastDeviceStatus(device);
                     var item = devicesListView.Items.Add(device.Id.ToString(), device.Name, DeviceStatusImageKey(status));
                     item.Tag = device;
-                    item.Group = DeviceStatusGroup(status);
                     deviceItems[device.Id] = item;
+
+                    UpdateDeviceGroup(db, device);
                 }
+            }
+        }
+
+        private void UpdateDeviceGroup(SQLiteConnection db, Device device)
+        {
+            if (db.HasUnacknowledgedEvents(device))
+            {
+                deviceItems[device.Id].Group = devicesListView.Groups["UnacknowledgedEvents"];
+            }
+            else
+            {
+                deviceItems[device.Id].Group = DeviceStatusGroup(db.GetLastDeviceStatus(device));
             }
         }
 
@@ -118,6 +146,10 @@ namespace SwitchMonitor
                 var item = deviceItems[change.Device.Id];
                 item.Group = DeviceStatusGroup(change.Status);
                 item.ImageKey = DeviceStatusImageKey(change.Status);
+                using (var db = Database.GetConnection())
+                {
+                    UpdateDeviceGroup(db, change.Device);
+                }
 
                 eventsOLV.UpdateItems();
             }

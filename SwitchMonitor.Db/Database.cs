@@ -98,5 +98,10 @@ namespace SwitchMonitor.Db
                 .OrderByDescending(e => e.Time);
             return events.FirstOrDefault()?.Status ?? DeviceStatus.Unknown;
         }
+
+        public static bool HasUnacknowledgedEvents(this SQLiteConnection connection, Device device)
+        {
+            return connection.Table<Event>().Where(e => e.DeviceId == device.Id && !e.Acknowledged).FirstOrDefault() != null;
+        }
     }
 }
