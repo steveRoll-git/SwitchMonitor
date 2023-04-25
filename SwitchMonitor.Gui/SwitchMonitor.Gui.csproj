@@ -102,6 +102,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CueTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DeviceInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,8 +190,10 @@
     <None Include="images\device_up.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\icon_close.png" />
     <Content Include="images\icon_edit.png" />
     <Content Include="images\icon_save.png" />
+    <Content Include="images\icon_search.png" />
     <Content Include="images\icon_undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -30,14 +30,17 @@ namespace SwitchMonitor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("רכיבים עם אירועים חדשים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("רכיבים עם אירועים חדשים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("חיפוש", System.Windows.Forms.HorizontalAlignment.Left);
             this.devicesListView = new System.Windows.Forms.ListView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.רכיביםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.אירועיםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acknowledgeAllButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showAllEventsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusChangeTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -47,8 +50,8 @@ namespace SwitchMonitor
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
             this.eventsGroupBox = new System.Windows.Forms.GroupBox();
-            this.acknowledgeAllButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.searchPictureBox = new System.Windows.Forms.PictureBox();
+            this.searchBox = new SwitchMonitor.CueTextBox();
             this.menuStrip1.SuspendLayout();
             this.deviceContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -56,26 +59,32 @@ namespace SwitchMonitor
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.devicesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.searchPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // devicesListView
             // 
-            this.devicesListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewGroup4.Header = "רכיבים עם אירועים חדשים";
-            listViewGroup4.Name = "UnacknowledgedEvents";
-            listViewGroup5.Header = "רכיבים תקולים";
-            listViewGroup5.Name = "DevicesDown";
-            listViewGroup6.Header = "רכיבים תקינים";
-            listViewGroup6.Name = "DevicesUp";
+            this.devicesListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            listViewGroup1.Header = "רכיבים עם אירועים חדשים";
+            listViewGroup1.Name = "UnacknowledgedEvents";
+            listViewGroup2.Header = "רכיבים תקולים";
+            listViewGroup2.Name = "DevicesDown";
+            listViewGroup3.Header = "רכיבים תקינים";
+            listViewGroup3.Name = "DevicesUp";
+            listViewGroup4.Header = "חיפוש";
+            listViewGroup4.Name = "SearchResults";
             this.devicesListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup4,
-            listViewGroup5,
-            listViewGroup6});
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3,
+            listViewGroup4});
             this.devicesListView.HideSelection = false;
-            this.devicesListView.Location = new System.Drawing.Point(3, 19);
+            this.devicesListView.Location = new System.Drawing.Point(6, 48);
             this.devicesListView.Name = "devicesListView";
             this.devicesListView.RightToLeftLayout = true;
-            this.devicesListView.Size = new System.Drawing.Size(522, 492);
+            this.devicesListView.Size = new System.Drawing.Size(486, 460);
             this.devicesListView.TabIndex = 0;
             this.devicesListView.UseCompatibleStateImageBehavior = false;
             this.devicesListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.devicesListView_MouseClick);
@@ -90,7 +99,7 @@ namespace SwitchMonitor
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(854, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(801, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -118,6 +127,18 @@ namespace SwitchMonitor
             this.אירועיםToolStripMenuItem.Name = "אירועיםToolStripMenuItem";
             this.אירועיםToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.אירועיםToolStripMenuItem.Text = "אירועים";
+            // 
+            // acknowledgeAllButton
+            // 
+            this.acknowledgeAllButton.Name = "acknowledgeAllButton";
+            this.acknowledgeAllButton.Size = new System.Drawing.Size(181, 22);
+            this.acknowledgeAllButton.Text = "סמן את כולם ב-✓";
+            this.acknowledgeAllButton.Click += new System.EventHandler(this.acknowledgeAllButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // showAllEventsItem
             // 
@@ -177,17 +198,19 @@ namespace SwitchMonitor
             this.splitContainer.Panel2.Controls.Add(this.eventsGroupBox);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer.Panel2MinSize = 70;
-            this.splitContainer.Size = new System.Drawing.Size(854, 514);
-            this.splitContainer.SplitterDistance = 528;
+            this.splitContainer.Size = new System.Drawing.Size(801, 514);
+            this.splitContainer.SplitterDistance = 498;
             this.splitContainer.TabIndex = 2;
             // 
             // devicesGroupBox
             // 
+            this.devicesGroupBox.Controls.Add(this.searchPictureBox);
+            this.devicesGroupBox.Controls.Add(this.searchBox);
             this.devicesGroupBox.Controls.Add(this.devicesListView);
             this.devicesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.devicesGroupBox.Location = new System.Drawing.Point(0, 0);
             this.devicesGroupBox.Name = "devicesGroupBox";
-            this.devicesGroupBox.Size = new System.Drawing.Size(528, 514);
+            this.devicesGroupBox.Size = new System.Drawing.Size(498, 514);
             this.devicesGroupBox.TabIndex = 1;
             this.devicesGroupBox.TabStop = false;
             this.devicesGroupBox.Text = "רשימת רכיבים";
@@ -197,28 +220,39 @@ namespace SwitchMonitor
             this.eventsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eventsGroupBox.Location = new System.Drawing.Point(0, 0);
             this.eventsGroupBox.Name = "eventsGroupBox";
-            this.eventsGroupBox.Size = new System.Drawing.Size(322, 514);
+            this.eventsGroupBox.Size = new System.Drawing.Size(299, 514);
             this.eventsGroupBox.TabIndex = 0;
             this.eventsGroupBox.TabStop = false;
             this.eventsGroupBox.Text = "אירועים אחרונים";
             // 
-            // acknowledgeAllButton
+            // searchPictureBox
             // 
-            this.acknowledgeAllButton.Name = "acknowledgeAllButton";
-            this.acknowledgeAllButton.Size = new System.Drawing.Size(181, 22);
-            this.acknowledgeAllButton.Text = "סמן את כולם ב-✓";
-            this.acknowledgeAllButton.Click += new System.EventHandler(this.acknowledgeAllButton_Click);
+            this.searchPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchPictureBox.Image = global::SwitchMonitor.Properties.Resources.icon_search;
+            this.searchPictureBox.Location = new System.Drawing.Point(479, 22);
+            this.searchPictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.searchPictureBox.Name = "searchPictureBox";
+            this.searchPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.searchPictureBox.TabIndex = 2;
+            this.searchPictureBox.TabStop = false;
+            this.searchPictureBox.Click += new System.EventHandler(this.searchPictureBox_Click);
             // 
-            // toolStripSeparator1
+            // searchBox
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBox.Cue = "חיפוש לפי שם או IP...";
+            this.searchBox.Location = new System.Drawing.Point(6, 19);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(470, 23);
+            this.searchBox.TabIndex = 1;
+            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 538);
+            this.ClientSize = new System.Drawing.Size(801, 538);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
@@ -235,6 +269,8 @@ namespace SwitchMonitor
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.devicesGroupBox.ResumeLayout(false);
+            this.devicesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.searchPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,6 +294,8 @@ namespace SwitchMonitor
         private System.Windows.Forms.ToolStripMenuItem showAllEventsItem;
         private System.Windows.Forms.ToolStripMenuItem acknowledgeAllButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private CueTextBox searchBox;
+        private System.Windows.Forms.PictureBox searchPictureBox;
     }
 }
 

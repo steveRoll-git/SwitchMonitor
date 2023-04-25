@@ -3,7 +3,9 @@ using SwitchMonitor.Db;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace SwitchMonitor
 {
@@ -38,6 +40,8 @@ namespace SwitchMonitor
         private readonly EventsOLV eventsOLV;
 
         private readonly ImageList devicesImageList;
+
+        private string previousSearchInput = "";
 
         public MainForm()
         {
@@ -218,6 +222,70 @@ namespace SwitchMonitor
                 db.UpdateAll(unacknowledged);
                 eventsOLV.UpdateItems();
             }
+        }
+
+        /// <summary>
+        /// only filters devices that are already shown - assuming
+        /// the current filter is a subset of the last one
+        /// </summary>
+        /// <param name="filter"></param>
+        private void FilterDevicesShown(string filter)
+        {
+            foreach (ListViewItem item in devicesListView.Items)
+            {
+                var device = (Device)item.Tag;
+                if (!(device.Name.Contains(filter) || device.Address.Contains(filter)))
+                {
+                    devicesListView.Items.Remove(item);
+                }
+                else
+                {
+                    item.Group = devicesListView.Groups["SearchResults"];
+                }
+            }
+        }
+
+        private void FilterDevices(string filter)
+        {
+            devicesListView.Clear();
+            foreach (var pair in deviceItems)
+            {
+                var item = pair.Value;
+                var device = (Device)item.Tag;
+                if (device.Name.Contains(filter) || device.Address.Contains(filter))
+                {
+                    devicesListView.Items.Add(item);
+                    item.Group = devicesListView.Groups["SearchResults"];
+                }
+            }
+        }
+
+        private void searchBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(searchBox.Text))
+            {
+                PopulateDevicesListView();
+                searchPictureBox.Image = Properties.Resources.icon_search;
+            }
+            else
+            {
+                if (searchBox.Text.Contains(previousSearchInput))
+                {
+                    FilterDevicesShown(searchBox.Text);
+                }
+                else
+                {
+                    FilterDevices(searchBox.Text);
+                }
+                searchPictureBox.Image = Properties.Resources.icon_close;
+            }
+
+            previousSearchInput = searchBox.Text;
+        }
+
+        private void searchPictureBox_Click(object sender, EventArgs e)
+        {
+            searchBox.Clear();
         }
     }
 }
