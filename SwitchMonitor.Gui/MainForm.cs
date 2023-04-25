@@ -107,36 +107,21 @@ namespace SwitchMonitor
             }
         }
 
-        private void addDeviceMenuItem_Click(object sender, EventArgs e)
+        private void OpenDeviceInfo(Device device, bool isNew = false)
         {
-            var dialog = new EditDeviceForm();
-            using (var db = Database.GetConnection())
+            var form = new DeviceInfoForm(device, isNew);
+            form.ShowDialog(this);
+            if (form.ChangesHappened)
             {
-            ShowAgain:
-                var result = dialog.ShowDialog(this);
-                if (result != DialogResult.OK)
-                {
-                    return;
-                }
-
-                var newDevice = new Device() { Address = dialog.Address, Name = dialog.DeviceName };
-                var existingDevice = db.Table<Device>().Where(d => d.Address == newDevice.Address).FirstOrDefault();
-                if (existingDevice != null)
-                {
-                    MessageBox.Show(this,
-                                    text: $"כבר קיים רכיב בשם \"{existingDevice.Name}\" עם אותה הכתובת.",
-                                    caption: "הרכיב כבר קיים",
-                                    buttons: MessageBoxButtons.OK,
-                                    icon: MessageBoxIcon.Warning,
-                                    defaultButton: MessageBoxDefaultButton.Button1,
-                                    options: MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    goto ShowAgain;
-                }
-
-                db.Insert(newDevice);
                 PopulateDevicesListView();
+                eventsOLV.UpdateItems();
                 DevicePoller.RefreshDevices();
             }
+        }
+
+        private void addDeviceMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenDeviceInfo(new Device(), true);
         }
 
         private void statusChangeTimer_Tick(object sender, EventArgs e)
@@ -164,7 +149,6 @@ namespace SwitchMonitor
                     return;
                 }
                 var multipleSelected = devicesListView.SelectedItems.Count > 1;
-                editToolStripItem.Enabled = !multipleSelected;
                 showInfoToolStripItem.Enabled = !multipleSelected;
                 deviceContextMenu.Show(Cursor.Position);
             }
@@ -193,11 +177,6 @@ namespace SwitchMonitor
                 DevicePoller.RefreshDevices();
                 PopulateDevicesListView();
             }
-        }
-
-        private void OpenDeviceInfo(Device device)
-        {
-            new DeviceInfoForm(device).ShowDialog(this);
         }
 
         private void devicesListView_MouseDoubleClick(object sender, MouseEventArgs e)

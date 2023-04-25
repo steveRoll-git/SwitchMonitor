@@ -41,7 +41,6 @@ namespace SwitchMonitor
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.deviceContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showInfoToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
@@ -101,7 +100,7 @@ namespace SwitchMonitor
             // addDeviceMenuItem
             // 
             this.addDeviceMenuItem.Name = "addDeviceMenuItem";
-            this.addDeviceMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addDeviceMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addDeviceMenuItem.Text = "הוסף רכיב...";
             this.addDeviceMenuItem.Click += new System.EventHandler(this.addDeviceMenuItem_Click);
             // 
@@ -120,29 +119,22 @@ namespace SwitchMonitor
             // 
             this.deviceContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showInfoToolStripItem,
-            this.editToolStripItem,
             this.deleteToolStripItem});
             this.deviceContextMenu.Name = "deviceContextMenu";
             this.deviceContextMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.deviceContextMenu.Size = new System.Drawing.Size(122, 70);
+            this.deviceContextMenu.Size = new System.Drawing.Size(181, 70);
             // 
             // showInfoToolStripItem
             // 
             this.showInfoToolStripItem.Name = "showInfoToolStripItem";
-            this.showInfoToolStripItem.Size = new System.Drawing.Size(121, 22);
+            this.showInfoToolStripItem.Size = new System.Drawing.Size(180, 22);
             this.showInfoToolStripItem.Text = "הצג מידע";
             this.showInfoToolStripItem.Click += new System.EventHandler(this.showInfoToolStripItem_Click);
-            // 
-            // editToolStripItem
-            // 
-            this.editToolStripItem.Name = "editToolStripItem";
-            this.editToolStripItem.Size = new System.Drawing.Size(121, 22);
-            this.editToolStripItem.Text = "ערוך";
             // 
             // deleteToolStripItem
             // 
             this.deleteToolStripItem.Name = "deleteToolStripItem";
-            this.deleteToolStripItem.Size = new System.Drawing.Size(121, 22);
+            this.deleteToolStripItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripItem.Text = "מחק";
             this.deleteToolStripItem.Click += new System.EventHandler(this.deleteToolStripItem_Click);
             // 
@@ -224,7 +216,6 @@ namespace SwitchMonitor
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip deviceContextMenu;
         private System.Windows.Forms.ToolStripMenuItem showInfoToolStripItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripItem;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.GroupBox devicesGroupBox;
