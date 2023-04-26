@@ -18,7 +18,10 @@ namespace SwitchMonitor
                 RightToLeftLayout = true,
             };
             this.Controls.Add(eventsOLV);
-            eventsOLV.EnsureVisible(eventsOLV.Items.Count - 1);
+            if (eventsOLV.Items.Count > 0)
+            {
+                eventsOLV.EnsureVisible(eventsOLV.Items.Count - 1);
+            }
         }
     }
 }
