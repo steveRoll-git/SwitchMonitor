@@ -30,10 +30,10 @@ namespace SwitchMonitor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("רכיבים עם אירועים חדשים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("חיפוש", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("רכיבים עם אירועים חדשים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("רכיבים תקולים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("רכיבים תקינים", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("חיפוש", System.Windows.Forms.HorizontalAlignment.Left);
             this.devicesListView = new System.Windows.Forms.ListView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.רכיביםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,9 +49,10 @@ namespace SwitchMonitor
             this.deleteToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
-            this.eventsGroupBox = new System.Windows.Forms.GroupBox();
             this.searchPictureBox = new System.Windows.Forms.PictureBox();
             this.searchBox = new SwitchMonitor.CueTextBox();
+            this.eventsGroupBox = new System.Windows.Forms.GroupBox();
+            this.pingToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.deviceContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -67,19 +68,19 @@ namespace SwitchMonitor
             this.devicesListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            listViewGroup1.Header = "רכיבים עם אירועים חדשים";
-            listViewGroup1.Name = "UnacknowledgedEvents";
-            listViewGroup2.Header = "רכיבים תקולים";
-            listViewGroup2.Name = "DevicesDown";
-            listViewGroup3.Header = "רכיבים תקינים";
-            listViewGroup3.Name = "DevicesUp";
-            listViewGroup4.Header = "חיפוש";
-            listViewGroup4.Name = "SearchResults";
+            listViewGroup5.Header = "רכיבים עם אירועים חדשים";
+            listViewGroup5.Name = "UnacknowledgedEvents";
+            listViewGroup6.Header = "רכיבים תקולים";
+            listViewGroup6.Name = "DevicesDown";
+            listViewGroup7.Header = "רכיבים תקינים";
+            listViewGroup7.Name = "DevicesUp";
+            listViewGroup8.Header = "חיפוש";
+            listViewGroup8.Name = "SearchResults";
             this.devicesListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4});
+            listViewGroup5,
+            listViewGroup6,
+            listViewGroup7,
+            listViewGroup8});
             this.devicesListView.HideSelection = false;
             this.devicesListView.Location = new System.Drawing.Point(6, 48);
             this.devicesListView.Name = "devicesListView";
@@ -162,22 +163,23 @@ namespace SwitchMonitor
             // 
             this.deviceContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showInfoToolStripItem,
+            this.pingToolStripItem,
             this.deleteToolStripItem});
             this.deviceContextMenu.Name = "deviceContextMenu";
             this.deviceContextMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.deviceContextMenu.Size = new System.Drawing.Size(122, 48);
+            this.deviceContextMenu.Size = new System.Drawing.Size(181, 92);
             // 
             // showInfoToolStripItem
             // 
             this.showInfoToolStripItem.Name = "showInfoToolStripItem";
-            this.showInfoToolStripItem.Size = new System.Drawing.Size(121, 22);
+            this.showInfoToolStripItem.Size = new System.Drawing.Size(180, 22);
             this.showInfoToolStripItem.Text = "הצג מידע";
             this.showInfoToolStripItem.Click += new System.EventHandler(this.showInfoToolStripItem_Click);
             // 
             // deleteToolStripItem
             // 
             this.deleteToolStripItem.Name = "deleteToolStripItem";
-            this.deleteToolStripItem.Size = new System.Drawing.Size(121, 22);
+            this.deleteToolStripItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripItem.Text = "מחק";
             this.deleteToolStripItem.Click += new System.EventHandler(this.deleteToolStripItem_Click);
             // 
@@ -215,16 +217,6 @@ namespace SwitchMonitor
             this.devicesGroupBox.TabStop = false;
             this.devicesGroupBox.Text = "רשימת רכיבים";
             // 
-            // eventsGroupBox
-            // 
-            this.eventsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.eventsGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.eventsGroupBox.Name = "eventsGroupBox";
-            this.eventsGroupBox.Size = new System.Drawing.Size(299, 514);
-            this.eventsGroupBox.TabIndex = 0;
-            this.eventsGroupBox.TabStop = false;
-            this.eventsGroupBox.Text = "אירועים אחרונים";
-            // 
             // searchPictureBox
             // 
             this.searchPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -247,6 +239,23 @@ namespace SwitchMonitor
             this.searchBox.Size = new System.Drawing.Size(470, 23);
             this.searchBox.TabIndex = 1;
             this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
+            // 
+            // eventsGroupBox
+            // 
+            this.eventsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eventsGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.eventsGroupBox.Name = "eventsGroupBox";
+            this.eventsGroupBox.Size = new System.Drawing.Size(299, 514);
+            this.eventsGroupBox.TabIndex = 0;
+            this.eventsGroupBox.TabStop = false;
+            this.eventsGroupBox.Text = "אירועים אחרונים";
+            // 
+            // pingToolStripItem
+            // 
+            this.pingToolStripItem.Name = "pingToolStripItem";
+            this.pingToolStripItem.Size = new System.Drawing.Size(180, 22);
+            this.pingToolStripItem.Text = "שלח Ping";
+            this.pingToolStripItem.Click += new System.EventHandler(this.pingToolStripItem_Click);
             // 
             // MainForm
             // 
@@ -296,6 +305,7 @@ namespace SwitchMonitor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private CueTextBox searchBox;
         private System.Windows.Forms.PictureBox searchPictureBox;
+        private System.Windows.Forms.ToolStripMenuItem pingToolStripItem;
     }
 }
 

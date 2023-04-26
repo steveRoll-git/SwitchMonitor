@@ -2,10 +2,9 @@
 using SwitchMonitor.Db;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace SwitchMonitor
 {
@@ -161,6 +160,7 @@ namespace SwitchMonitor
                 }
                 var multipleSelected = devicesListView.SelectedItems.Count > 1;
                 showInfoToolStripItem.Enabled = !multipleSelected;
+                pingToolStripItem.Enabled = !multipleSelected;
                 deviceContextMenu.Show(Cursor.Position);
             }
         }
@@ -288,6 +288,14 @@ namespace SwitchMonitor
         private void searchPictureBox_Click(object sender, EventArgs e)
         {
             searchBox.Clear();
+        }
+
+        private void pingToolStripItem_Click(object sender, EventArgs e)
+        {
+            if (devicesListView.SelectedItems.Count == 1)
+            {
+                Process.Start("cmd.exe", $"/C ping {((Device)devicesListView.SelectedItems[0].Tag).Address} -t");
+            }
         }
     }
 }
