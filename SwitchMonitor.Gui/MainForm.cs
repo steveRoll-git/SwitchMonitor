@@ -47,6 +47,8 @@ namespace SwitchMonitor
         {
             InitializeComponent();
 
+            this.Icon = Properties.Resources.icon;
+
             PopulateDevicesListView();
 
             this.eventsOLV = new EventsOLV(db => db.Table<Event>().Where(e => !e.Acknowledged), EventsOLV.EventColumns.AllWithButton)
