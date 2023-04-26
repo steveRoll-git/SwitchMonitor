@@ -28,21 +28,21 @@ namespace SwitchMonitor
 
             UpdateFieldsFromData();
 
-            using (var db = Database.GetConnection())
-            {
-                switch (db.GetLastDeviceStatus(device))
+            lock (Database.Lock) using (var db = Database.GetConnection())
                 {
-                    case DeviceStatus.Up:
-                        deviceIcon.Image = Properties.Resources.deviceUp;
-                        break;
-                    case DeviceStatus.Down:
-                        deviceIcon.Image = Properties.Resources.deviceDown;
-                        break;
-                    default:
-                        deviceIcon.Image = Properties.Resources.deviceUnknown;
-                        break;
+                    switch (db.GetLastDeviceStatus(device))
+                    {
+                        case DeviceStatus.Up:
+                            deviceIcon.Image = Properties.Resources.deviceUp;
+                            break;
+                        case DeviceStatus.Down:
+                            deviceIcon.Image = Properties.Resources.deviceDown;
+                            break;
+                        default:
+                            deviceIcon.Image = Properties.Resources.deviceUnknown;
+                            break;
+                    }
                 }
-            }
 
             eventsOLV = new EventsOLV(
                 db => db.Table<Event>().Where(e => e.DeviceId == this.device.Id).OrderBy(e => e.Time),
@@ -99,35 +99,35 @@ namespace SwitchMonitor
 
             var address = deviceAddressBox.Text;
 
-            using (var db = Database.GetConnection())
-            {
-                var existingDevice = db.Table<Device>().Where(d => d.Id != device.Id && d.Address == address).FirstOrDefault();
-                if (existingDevice != null)
+            lock (Database.Lock) using (var db = Database.GetConnection())
                 {
-                    MessageBox.Show(this,
-                                    text: $"כבר קיים רכיב בשם \"{existingDevice.Name}\" עם הכתובת {address}.",
-                                    caption: "הרכיב כבר קיים",
-                                    buttons: MessageBoxButtons.OK,
-                                    icon: MessageBoxIcon.Warning,
-                                    defaultButton: MessageBoxDefaultButton.Button1,
-                                    options: MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    return false;
-                }
+                    var existingDevice = db.Table<Device>().Where(d => d.Id != device.Id && d.Address == address).FirstOrDefault();
+                    if (existingDevice != null)
+                    {
+                        MessageBox.Show(this,
+                                        text: $"כבר קיים רכיב בשם \"{existingDevice.Name}\" עם הכתובת {address}.",
+                                        caption: "הרכיב כבר קיים",
+                                        buttons: MessageBoxButtons.OK,
+                                        icon: MessageBoxIcon.Warning,
+                                        defaultButton: MessageBoxDefaultButton.Button1,
+                                        options: MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        return false;
+                    }
 
-                device.Address = deviceAddressBox.Text;
-                device.Name = deviceNameBox.Text;
-                device.Description = descriptionBox.Text;
+                    device.Address = deviceAddressBox.Text;
+                    device.Name = deviceNameBox.Text;
+                    device.Description = descriptionBox.Text;
 
-                if (isNewDevice)
-                {
-                    db.Insert(device);
-                    isNewDevice = false;
+                    if (isNewDevice)
+                    {
+                        db.Insert(device);
+                        isNewDevice = false;
+                    }
+                    else
+                    {
+                        db.Update(device);
+                    }
                 }
-                else
-                {
-                    db.Update(device);
-                }
-            }
 
             ChangesHappened = true;
             SetEditMode(false);

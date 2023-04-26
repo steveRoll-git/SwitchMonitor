@@ -102,29 +102,20 @@ namespace SwitchMonitor
             }
 
             FormatRow += EventsOLV_FormatRow;
-            ItemsChanged += EventsOLV_ItemsChanged;
 
             UpdateItems();
         }
 
         private void EventsOLV_ButtonClick(object sender, CellClickEventArgs e)
         {
-            using (var db = Database.GetConnection())
-            {
-                var theEvent = (Event)e.Model;
-                theEvent.Acknowledge();
-                db.Update(theEvent);
+            lock (Database.Lock) using (var db = Database.GetConnection())
+                {
+                    var theEvent = (Event)e.Model;
+                    theEvent.Acknowledge();
+                    db.Update(theEvent);
 
-                UpdateItems();
-            }
-        }
-
-        private void EventsOLV_ItemsChanged(object sender, ItemsChangedEventArgs e)
-        {
-            //foreach (OLVListItem item in this.Items)
-            //{
-            //    FormatEventRow(item);
-            //}
+                    UpdateItems();
+                }
         }
 
         private void EventsOLV_FormatRow(object sender, FormatRowEventArgs e)
@@ -134,10 +125,10 @@ namespace SwitchMonitor
 
         public void UpdateItems()
         {
-            using (var db = Database.GetConnection())
-            {
-                SetObjects(eventSource(db));
-            }
+            lock (Database.Lock) using (var db = Database.GetConnection())
+                {
+                    SetObjects(eventSource(db));
+                }
         }
 
         private void FormatEventRow(OLVListItem item)

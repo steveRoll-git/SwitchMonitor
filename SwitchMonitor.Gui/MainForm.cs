@@ -75,29 +75,29 @@ namespace SwitchMonitor
             {
                 return;
             }
-            using (var db = Database.GetConnection())
-            {
-                UpdateDeviceGroup(db, (Device)deviceItems[theEvent.DeviceId].Tag);
-            }
+            lock (Database.Lock) using (var db = Database.GetConnection())
+                {
+                    UpdateDeviceGroup(db, (Device)deviceItems[theEvent.DeviceId].Tag);
+                }
         }
 
         public void PopulateDevicesListView()
         {
             devicesListView.Items.Clear();
             deviceItems = new Dictionary<int, ListViewItem>();
-            using (var db = Database.GetConnection())
-            {
-                var devices = db.Table<Device>();
-                foreach (var device in devices)
+            lock (Database.Lock) using (var db = Database.GetConnection())
                 {
-                    var status = db.GetLastDeviceStatus(device);
-                    var item = devicesListView.Items.Add(device.Id.ToString(), device.Name, DeviceStatusImageKey(status));
-                    item.Tag = device;
-                    deviceItems[device.Id] = item;
+                    var devices = db.Table<Device>();
+                    foreach (var device in devices)
+                    {
+                        var status = db.GetLastDeviceStatus(device);
+                        var item = devicesListView.Items.Add(device.Id.ToString(), device.Name, DeviceStatusImageKey(status));
+                        item.Tag = device;
+                        deviceItems[device.Id] = item;
 
-                    UpdateDeviceGroup(db, device);
+                        UpdateDeviceGroup(db, device);
+                    }
                 }
-            }
         }
 
         private void UpdateDeviceStatusGroup(SQLiteConnection db, Device device)
@@ -141,10 +141,10 @@ namespace SwitchMonitor
                 var item = deviceItems[change.Device.Id];
                 item.Group = DeviceStatusGroup(change.Status);
                 item.ImageKey = DeviceStatusImageKey(change.Status);
-                using (var db = Database.GetConnection())
-                {
-                    UpdateDeviceGroup(db, change.Device);
-                }
+                lock (Database.Lock) using (var db = Database.GetConnection())
+                    {
+                        UpdateDeviceGroup(db, change.Device);
+                    }
 
                 eventsOLV.UpdateItems();
             }
@@ -177,14 +177,14 @@ namespace SwitchMonitor
 
             if (result == DialogResult.OK)
             {
-                using (var db = Database.GetConnection())
-                {
-                    foreach (ListViewItem selected in devicesListView.SelectedItems)
+                lock (Database.Lock) using (var db = Database.GetConnection())
                     {
-                        var device = (Device)selected.Tag;
-                        db.Delete(device);
+                        foreach (ListViewItem selected in devicesListView.SelectedItems)
+                        {
+                            var device = (Device)selected.Tag;
+                            db.Delete(device);
+                        }
                     }
-                }
                 DevicePoller.RefreshDevices();
                 PopulateDevicesListView();
             }
@@ -213,17 +213,17 @@ namespace SwitchMonitor
 
         private void acknowledgeAllButton_Click(object sender, EventArgs _)
         {
-            using (var db = Database.GetConnection())
-            {
-                var unacknowledged = db.Table<Event>().Where(e => !e.Acknowledged).ToList();
-                foreach (var e in unacknowledged)
+            lock (Database.Lock) using (var db = Database.GetConnection())
                 {
-                    e.Acknowledge();
-                    UpdateDeviceStatusGroup(db, db.Find<Device>(e.DeviceId));
+                    var unacknowledged = db.Table<Event>().Where(e => !e.Acknowledged).ToList();
+                    foreach (var e in unacknowledged)
+                    {
+                        e.Acknowledge();
+                        UpdateDeviceStatusGroup(db, db.Find<Device>(e.DeviceId));
+                    }
+                    db.UpdateAll(unacknowledged);
+                    eventsOLV.UpdateItems();
                 }
-                db.UpdateAll(unacknowledged);
-                eventsOLV.UpdateItems();
-            }
         }
 
         /// <summary>

@@ -42,11 +42,11 @@ namespace SwitchMonitor
 
         public static void RefreshDevices()
         {
-            using (var db = Database.GetConnection())
-            {
-                devices = db.Table<Device>().ToList();
-                lastStatuses.Clear();
-            }
+            lock (Database.Lock) using (var db = Database.GetConnection())
+                {
+                    devices = db.Table<Device>().ToList();
+                    lastStatuses.Clear();
+                }
         }
 
         private static async Task<DeviceStatusChange> PingDeviceAsync(Device device)
@@ -96,10 +96,10 @@ namespace SwitchMonitor
 
                         if (!lastStatuses.ContainsKey(device.Address))
                         {
-                            using (var db = Database.GetConnection())
-                            {
-                                lastStatuses[device.Address] = db.GetLastDeviceStatus(device);
-                            }
+                            lock (Database.Lock) using (var db = Database.GetConnection())
+                                {
+                                    lastStatuses[device.Address] = db.GetLastDeviceStatus(device);
+                                }
                         }
 
                         var currentStatus = result.Status;
@@ -107,12 +107,12 @@ namespace SwitchMonitor
                         if (currentStatus != lastStatuses[device.Address])
                         {
                             var newEvent = new Event(DateTime.Now, device, currentStatus);
-                            using (var db = Database.GetConnection())
-                            {
-                                db.Insert(newEvent);
-                                lastStatuses[device.Address] = currentStatus;
-                                statusChangeQueue.Enqueue(result);
-                            }
+                            lock (Database.Lock) using (var db = Database.GetConnection())
+                                {
+                                    db.Insert(newEvent);
+                                    lastStatuses[device.Address] = currentStatus;
+                                    statusChangeQueue.Enqueue(result);
+                                }
                         }
                     }
 

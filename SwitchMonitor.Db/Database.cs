@@ -1,7 +1,5 @@
 ﻿using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SwitchMonitor.Db
 {
@@ -73,6 +71,8 @@ namespace SwitchMonitor.Db
     {
         public static string ConnectionString =>
             System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "SwitchMonitorDatabase");
+
+        public static object Lock = new object();
 
         public static SQLiteConnection GetConnection()
         {
