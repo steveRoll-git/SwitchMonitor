@@ -190,6 +190,8 @@
     <None Include="images\device_up.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\connection_no.png" />
+    <Content Include="images\connection_ok.png" />
     <Content Include="images\icon_close.png" />
     <Content Include="images\icon_edit.png" />
     <Content Include="images\icon_save.png" />

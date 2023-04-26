@@ -49,8 +49,10 @@ namespace SwitchMonitor
             this.deleteToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
-            this.eventsGroupBox = new System.Windows.Forms.GroupBox();
             this.searchPictureBox = new System.Windows.Forms.PictureBox();
+            this.eventsGroupBox = new System.Windows.Forms.GroupBox();
+            this.connectionPictureBox = new System.Windows.Forms.PictureBox();
+            this.connectionLabel = new System.Windows.Forms.Label();
             this.searchBox = new SwitchMonitor.CueTextBox();
             this.menuStrip1.SuspendLayout();
             this.deviceContextMenu.SuspendLayout();
@@ -60,6 +62,7 @@ namespace SwitchMonitor
             this.splitContainer.SuspendLayout();
             this.devicesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // devicesListView
@@ -84,7 +87,7 @@ namespace SwitchMonitor
             this.devicesListView.Location = new System.Drawing.Point(6, 48);
             this.devicesListView.Name = "devicesListView";
             this.devicesListView.RightToLeftLayout = true;
-            this.devicesListView.Size = new System.Drawing.Size(486, 460);
+            this.devicesListView.Size = new System.Drawing.Size(486, 437);
             this.devicesListView.TabIndex = 0;
             this.devicesListView.UseCompatibleStateImageBehavior = false;
             this.devicesListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.devicesListView_MouseClick);
@@ -183,7 +186,9 @@ namespace SwitchMonitor
             // 
             // splitContainer
             // 
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer.Location = new System.Drawing.Point(0, 24);
             this.splitContainer.Name = "splitContainer";
             // 
@@ -198,8 +203,8 @@ namespace SwitchMonitor
             this.splitContainer.Panel2.Controls.Add(this.eventsGroupBox);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer.Panel2MinSize = 70;
-            this.splitContainer.Size = new System.Drawing.Size(801, 514);
-            this.splitContainer.SplitterDistance = 498;
+            this.splitContainer.Size = new System.Drawing.Size(801, 491);
+            this.splitContainer.SplitterDistance = 501;
             this.splitContainer.TabIndex = 2;
             // 
             // devicesGroupBox
@@ -210,20 +215,10 @@ namespace SwitchMonitor
             this.devicesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.devicesGroupBox.Location = new System.Drawing.Point(0, 0);
             this.devicesGroupBox.Name = "devicesGroupBox";
-            this.devicesGroupBox.Size = new System.Drawing.Size(498, 514);
+            this.devicesGroupBox.Size = new System.Drawing.Size(501, 491);
             this.devicesGroupBox.TabIndex = 1;
             this.devicesGroupBox.TabStop = false;
             this.devicesGroupBox.Text = "רשימת רכיבים";
-            // 
-            // eventsGroupBox
-            // 
-            this.eventsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.eventsGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.eventsGroupBox.Name = "eventsGroupBox";
-            this.eventsGroupBox.Size = new System.Drawing.Size(299, 514);
-            this.eventsGroupBox.TabIndex = 0;
-            this.eventsGroupBox.TabStop = false;
-            this.eventsGroupBox.Text = "אירועים אחרונים";
             // 
             // searchPictureBox
             // 
@@ -236,6 +231,37 @@ namespace SwitchMonitor
             this.searchPictureBox.TabIndex = 2;
             this.searchPictureBox.TabStop = false;
             this.searchPictureBox.Click += new System.EventHandler(this.searchPictureBox_Click);
+            // 
+            // eventsGroupBox
+            // 
+            this.eventsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eventsGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.eventsGroupBox.Name = "eventsGroupBox";
+            this.eventsGroupBox.Size = new System.Drawing.Size(296, 491);
+            this.eventsGroupBox.TabIndex = 0;
+            this.eventsGroupBox.TabStop = false;
+            this.eventsGroupBox.Text = "אירועים אחרונים";
+            // 
+            // connectionPictureBox
+            // 
+            this.connectionPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.connectionPictureBox.Image = global::SwitchMonitor.Properties.Resources.connection_ok;
+            this.connectionPictureBox.Location = new System.Drawing.Point(6, 518);
+            this.connectionPictureBox.Name = "connectionPictureBox";
+            this.connectionPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.connectionPictureBox.TabIndex = 4;
+            this.connectionPictureBox.TabStop = false;
+            // 
+            // connectionLabel
+            // 
+            this.connectionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.connectionLabel.AutoSize = true;
+            this.connectionLabel.Location = new System.Drawing.Point(28, 518);
+            this.connectionLabel.Name = "connectionLabel";
+            this.connectionLabel.Size = new System.Drawing.Size(86, 15);
+            this.connectionLabel.TabIndex = 3;
+            this.connectionLabel.Text = "חיבוריות תקינה";
+            this.connectionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // searchBox
             // 
@@ -253,6 +279,8 @@ namespace SwitchMonitor
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(801, 538);
+            this.Controls.Add(this.connectionPictureBox);
+            this.Controls.Add(this.connectionLabel);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
@@ -271,6 +299,7 @@ namespace SwitchMonitor
             this.devicesGroupBox.ResumeLayout(false);
             this.devicesGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,6 +325,8 @@ namespace SwitchMonitor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private CueTextBox searchBox;
         private System.Windows.Forms.PictureBox searchPictureBox;
+        private System.Windows.Forms.PictureBox connectionPictureBox;
+        private System.Windows.Forms.Label connectionLabel;
     }
 }
 

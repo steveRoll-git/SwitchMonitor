@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
@@ -42,6 +43,8 @@ namespace SwitchMonitor
         private readonly ImageList devicesImageList;
 
         private string previousSearchInput = "";
+
+        private bool prevNetworkAvailable = true;
 
         public MainForm()
         {
@@ -147,6 +150,25 @@ namespace SwitchMonitor
 
                 eventsOLV.UpdateItems();
             }
+
+            var isNetworkAvailable = DevicePoller.IsNetworkAvailable;
+
+            if (!prevNetworkAvailable && isNetworkAvailable)
+            {
+                connectionLabel.Text = "חיבוריות תקינה";
+                connectionLabel.BackColor = Color.FromKnownColor(KnownColor.Transparent);
+                this.BackColor = Color.FromKnownColor(KnownColor.Control);
+                connectionPictureBox.Image = Properties.Resources.connection_ok;
+            }
+            else if(prevNetworkAvailable && !isNetworkAvailable)
+            {
+                connectionLabel.Text = "חיבוריות לא תקינה. אירועים על רכיבים לא יירשמו.";
+                connectionLabel.BackColor = Color.Yellow;
+                this.BackColor = Color.FromArgb(255, 255, 140);
+                connectionPictureBox.Image = Properties.Resources.connection_no;
+            }
+
+            prevNetworkAvailable = isNetworkAvailable;
         }
 
         private void devicesListView_MouseClick(object sender, MouseEventArgs e)

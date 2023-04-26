@@ -29,6 +29,12 @@ namespace SwitchMonitor
 
         public delegate void DeviceStatusChangeHandler(Device device, DeviceStatus status);
 
+        public static bool IsNetworkAvailable
+        {
+            get;
+            private set;
+        } = true;
+
         private static DeviceStatus IPStatusToDevice(IPStatus status)
         {
             switch (status)
@@ -83,6 +89,20 @@ namespace SwitchMonitor
             {
                 while (true)
                 {
+                    if (!NetworkInterface.GetIsNetworkAvailable())
+                    {
+                        IsNetworkAvailable = false;
+                        Thread.Sleep(2000);
+                        continue;
+                    }
+                    else if (!IsNetworkAvailable)
+                    {
+                        IsNetworkAvailable = true;
+                        // Need to wait some time after network cable is plugged in
+                        // before pings resume to work.
+                        Thread.Sleep(5000);
+                    }
+
                     var pingResults = PingAllDevicesAsync().Result;
 
                     foreach (var result in pingResults)
