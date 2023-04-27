@@ -47,6 +47,7 @@ namespace SwitchMonitor
             InitializeComponent();
 
             this.Icon = Properties.Resources.icon;
+            notifyIcon.Icon = Properties.Resources.icon;
 
             PopulateDevicesListView();
 
@@ -296,6 +297,27 @@ namespace SwitchMonitor
             {
                 Process.Start("cmd.exe", $"/C ping {((Device)devicesListView.SelectedItems[0].Tag).Address} -t");
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        private void BringFormToFront()
+        {
+            this.WindowState = FormWindowState.Minimized;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            BringFormToFront();
         }
     }
 }

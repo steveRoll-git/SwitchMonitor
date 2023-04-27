@@ -46,13 +46,13 @@ namespace SwitchMonitor
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.deviceContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showInfoToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pingToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
             this.searchPictureBox = new System.Windows.Forms.PictureBox();
             this.searchBox = new SwitchMonitor.CueTextBox();
             this.eventsGroupBox = new System.Windows.Forms.GroupBox();
-            this.pingToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.deviceContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -158,6 +158,7 @@ namespace SwitchMonitor
             // 
             this.notifyIcon.Text = "סטטוס מתגים";
             this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // deviceContextMenu
             // 
@@ -167,19 +168,26 @@ namespace SwitchMonitor
             this.deleteToolStripItem});
             this.deviceContextMenu.Name = "deviceContextMenu";
             this.deviceContextMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.deviceContextMenu.Size = new System.Drawing.Size(181, 92);
+            this.deviceContextMenu.Size = new System.Drawing.Size(126, 70);
             // 
             // showInfoToolStripItem
             // 
             this.showInfoToolStripItem.Name = "showInfoToolStripItem";
-            this.showInfoToolStripItem.Size = new System.Drawing.Size(180, 22);
+            this.showInfoToolStripItem.Size = new System.Drawing.Size(125, 22);
             this.showInfoToolStripItem.Text = "הצג מידע";
             this.showInfoToolStripItem.Click += new System.EventHandler(this.showInfoToolStripItem_Click);
+            // 
+            // pingToolStripItem
+            // 
+            this.pingToolStripItem.Name = "pingToolStripItem";
+            this.pingToolStripItem.Size = new System.Drawing.Size(125, 22);
+            this.pingToolStripItem.Text = "שלח Ping";
+            this.pingToolStripItem.Click += new System.EventHandler(this.pingToolStripItem_Click);
             // 
             // deleteToolStripItem
             // 
             this.deleteToolStripItem.Name = "deleteToolStripItem";
-            this.deleteToolStripItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripItem.Size = new System.Drawing.Size(125, 22);
             this.deleteToolStripItem.Text = "מחק";
             this.deleteToolStripItem.Click += new System.EventHandler(this.deleteToolStripItem_Click);
             // 
@@ -250,13 +258,6 @@ namespace SwitchMonitor
             this.eventsGroupBox.TabStop = false;
             this.eventsGroupBox.Text = "אירועים אחרונים";
             // 
-            // pingToolStripItem
-            // 
-            this.pingToolStripItem.Name = "pingToolStripItem";
-            this.pingToolStripItem.Size = new System.Drawing.Size(180, 22);
-            this.pingToolStripItem.Text = "שלח Ping";
-            this.pingToolStripItem.Click += new System.EventHandler(this.pingToolStripItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -270,6 +271,7 @@ namespace SwitchMonitor
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "Switch Monitor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.deviceContextMenu.ResumeLayout(false);
