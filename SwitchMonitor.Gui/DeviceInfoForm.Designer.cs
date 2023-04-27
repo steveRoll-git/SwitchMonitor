@@ -41,6 +41,8 @@
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.revertButton = new System.Windows.Forms.ToolStripButton();
             this.deviceIcon = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.muteCheckbox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceIcon)).BeginInit();
@@ -52,14 +54,17 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.86302F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.13698F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.deviceAddressBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.descriptionBox, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.muteCheckbox, 1, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 131);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -109,7 +114,7 @@
             this.descriptionBox.ReadOnly = true;
             this.tableLayoutPanel1.SetRowSpan(this.descriptionBox, 3);
             this.descriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.descriptionBox.Size = new System.Drawing.Size(170, 149);
+            this.descriptionBox.Size = new System.Drawing.Size(170, 84);
             this.descriptionBox.TabIndex = 2;
             // 
             // eventsGroupBox
@@ -192,6 +197,27 @@
             this.deviceIcon.TabIndex = 0;
             this.deviceIcon.TabStop = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(256, 120);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 30);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "השתק";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // muteCheckbox
+            // 
+            this.muteCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.muteCheckbox.Enabled = false;
+            this.muteCheckbox.Location = new System.Drawing.Point(80, 123);
+            this.muteCheckbox.Name = "muteCheckbox";
+            this.muteCheckbox.Size = new System.Drawing.Size(170, 24);
+            this.muteCheckbox.TabIndex = 5;
+            this.muteCheckbox.UseVisualStyleBackColor = true;
+            // 
             // DeviceInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -235,5 +261,7 @@
         private System.Windows.Forms.ToolStripButton revertButton;
         private System.Windows.Forms.TextBox descriptionBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox muteCheckbox;
     }
 }

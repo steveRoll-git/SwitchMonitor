@@ -107,6 +107,10 @@ namespace SwitchMonitor
                         if (currentStatus != lastStatuses[device.Address])
                         {
                             var newEvent = new Event(DateTime.Now, device, currentStatus);
+                            if (device.Mute)
+                            {
+                                newEvent.Acknowledge();
+                            }
                             lock (Database.Lock) using (var db = Database.GetConnection())
                                 {
                                     db.Insert(newEvent);

@@ -66,6 +66,7 @@ namespace SwitchMonitor
             deviceNameBox.Text = device.Name;
             deviceAddressBox.Text = device.Address;
             descriptionBox.Text = device.Description;
+            muteCheckbox.Checked = device.Mute;
         }
 
         public void SetEditMode(bool editMode)
@@ -81,6 +82,7 @@ namespace SwitchMonitor
             deviceNameBox.ReadOnly = !editMode;
             deviceAddressBox.ReadOnly = !editMode;
             descriptionBox.ReadOnly = !editMode;
+            muteCheckbox.Enabled = editMode;
         }
 
         private bool SaveData()
@@ -117,6 +119,7 @@ namespace SwitchMonitor
                     device.Address = deviceAddressBox.Text;
                     device.Name = deviceNameBox.Text;
                     device.Description = descriptionBox.Text;
+                    device.Mute = muteCheckbox.Checked;
 
                     if (isNewDevice)
                     {

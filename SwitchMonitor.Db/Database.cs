@@ -22,6 +22,8 @@ namespace SwitchMonitor.Db
         public string Address { get; set; }
 
         public string Description { get; set; }
+
+        public bool Mute { get; set; }
     }
 
     [Table("events")]
