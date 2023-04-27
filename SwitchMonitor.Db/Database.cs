@@ -23,6 +23,16 @@ namespace SwitchMonitor.Db
 
         public string Description { get; set; }
 
+        public DateTime? LastPing { get; set; }
+
+        public DateTime? LastSuccessfulPing { get; set; }
+
+        /// <summary>
+        /// Minimum amount of time to wait in between pings for this device,
+        /// in seconds.
+        /// </summary>
+        public int PingInterval { get; set; }
+
         public bool Mute { get; set; }
     }
 
@@ -83,11 +93,32 @@ namespace SwitchMonitor.Db
 
         public static void CreateTables()
         {
-            using (var connection = GetConnection())
-            {
-                connection.CreateTable<Device>();
-                connection.CreateTable<Event>();
-            }
+            lock (Lock) using (var db = GetConnection())
+                {
+                    db.CreateTable<Device>();
+                    db.CreateTable<Event>();
+
+                    var devices = db.Table<Device>().ToList();
+
+                    foreach (var device in devices)
+                    {
+                        if (device.LastPing == null)
+                        {
+                            var lastEvent =
+                            device.LastPing = db.Table<Event>()
+                                                          .Where(e => e.DeviceId == device.Id)
+                                                          .OrderByDescending(e => e.Time)
+                                                          .FirstOrDefault()?.Time;
+                        }
+
+                        if (device.PingInterval == 0)
+                        {
+                            device.PingInterval = 1;
+                        }
+                    }
+
+                    db.UpdateAll(devices);
+                }
         }
 
         static Database()

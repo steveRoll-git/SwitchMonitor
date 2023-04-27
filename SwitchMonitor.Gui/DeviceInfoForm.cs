@@ -67,6 +67,8 @@ namespace SwitchMonitor
             deviceAddressBox.Text = device.Address;
             descriptionBox.Text = device.Description;
             muteCheckbox.Checked = device.Mute;
+            lastPingLabel.Text = device.LastSuccessfulPing.ToString();
+            pingIntervalBox.Value = device.PingInterval;
         }
 
         public void SetEditMode(bool editMode)
@@ -83,6 +85,7 @@ namespace SwitchMonitor
             deviceAddressBox.ReadOnly = !editMode;
             descriptionBox.ReadOnly = !editMode;
             muteCheckbox.Enabled = editMode;
+            pingIntervalBox.Enabled = editMode;
         }
 
         private bool SaveData()
@@ -120,6 +123,7 @@ namespace SwitchMonitor
                     device.Name = deviceNameBox.Text;
                     device.Description = descriptionBox.Text;
                     device.Mute = muteCheckbox.Checked;
+                    device.PingInterval = (int)pingIntervalBox.Value;
 
                     if (isNewDevice)
                     {

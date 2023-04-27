@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.deviceAddressBox = new System.Windows.Forms.TextBox();
             this.descriptionBox = new System.Windows.Forms.TextBox();
+            this.muteCheckbox = new System.Windows.Forms.CheckBox();
             this.eventsGroupBox = new System.Windows.Forms.GroupBox();
             this.deviceNameBox = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -41,36 +43,58 @@
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.revertButton = new System.Windows.Forms.ToolStripButton();
             this.deviceIcon = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.muteCheckbox = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lastPingLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pingIntervalBox = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pingIntervalBox)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.86302F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.13698F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.44664F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.55336F));
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.deviceAddressBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.descriptionBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.muteCheckbox, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lastPingLabel, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.pingIntervalBox, 1, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 131);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(314, 185);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(357, 271);
             this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(256, 120);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(98, 30);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "השתק";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
@@ -78,7 +102,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(256, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 30);
+            this.label2.Size = new System.Drawing.Size(98, 30);
             this.label2.TabIndex = 3;
             this.label2.Text = "הערות";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -89,7 +113,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(256, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 30);
+            this.label1.Size = new System.Drawing.Size(98, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "כתובת IP";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -97,34 +121,44 @@
             // deviceAddressBox
             // 
             this.deviceAddressBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deviceAddressBox.Location = new System.Drawing.Point(80, 3);
+            this.deviceAddressBox.Location = new System.Drawing.Point(55, 3);
             this.deviceAddressBox.Name = "deviceAddressBox";
             this.deviceAddressBox.ReadOnly = true;
             this.deviceAddressBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.deviceAddressBox.Size = new System.Drawing.Size(170, 23);
+            this.deviceAddressBox.Size = new System.Drawing.Size(195, 23);
             this.deviceAddressBox.TabIndex = 1;
             this.deviceAddressBox.Click += new System.EventHandler(this.deviceAddressBox_Click);
             // 
             // descriptionBox
             // 
             this.descriptionBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.descriptionBox.Location = new System.Drawing.Point(80, 33);
+            this.descriptionBox.Location = new System.Drawing.Point(55, 33);
             this.descriptionBox.Multiline = true;
             this.descriptionBox.Name = "descriptionBox";
             this.descriptionBox.ReadOnly = true;
             this.tableLayoutPanel1.SetRowSpan(this.descriptionBox, 3);
             this.descriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.descriptionBox.Size = new System.Drawing.Size(170, 84);
+            this.descriptionBox.Size = new System.Drawing.Size(195, 84);
             this.descriptionBox.TabIndex = 2;
+            // 
+            // muteCheckbox
+            // 
+            this.muteCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.muteCheckbox.Enabled = false;
+            this.muteCheckbox.Location = new System.Drawing.Point(55, 123);
+            this.muteCheckbox.Name = "muteCheckbox";
+            this.muteCheckbox.Size = new System.Drawing.Size(195, 24);
+            this.muteCheckbox.TabIndex = 5;
+            this.muteCheckbox.UseVisualStyleBackColor = true;
             // 
             // eventsGroupBox
             // 
             this.eventsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.eventsGroupBox.Location = new System.Drawing.Point(332, 28);
+            this.eventsGroupBox.Location = new System.Drawing.Point(375, 28);
             this.eventsGroupBox.Name = "eventsGroupBox";
-            this.eventsGroupBox.Size = new System.Drawing.Size(224, 288);
+            this.eventsGroupBox.Size = new System.Drawing.Size(232, 374);
             this.eventsGroupBox.TabIndex = 3;
             this.eventsGroupBox.TabStop = false;
             this.eventsGroupBox.Text = "אירועים של הרכיב הזה";
@@ -135,7 +169,7 @@
             this.deviceNameBox.Location = new System.Drawing.Point(82, 41);
             this.deviceNameBox.Name = "deviceNameBox";
             this.deviceNameBox.ReadOnly = true;
-            this.deviceNameBox.Size = new System.Drawing.Size(244, 39);
+            this.deviceNameBox.Size = new System.Drawing.Size(287, 39);
             this.deviceNameBox.TabIndex = 4;
             // 
             // toolStrip1
@@ -149,7 +183,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.ShowItemToolTips = false;
-            this.toolStrip1.Size = new System.Drawing.Size(568, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(619, 25);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -197,32 +231,67 @@
             this.deviceIcon.TabIndex = 0;
             this.deviceIcon.TabStop = false;
             // 
-            // label3
+            // label4
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(256, 120);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 30);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "השתק";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(256, 180);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 30);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "פינג מוצלח אחרון";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // muteCheckbox
+            // lastPingLabel
             // 
-            this.muteCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.muteCheckbox.Enabled = false;
-            this.muteCheckbox.Location = new System.Drawing.Point(80, 123);
-            this.muteCheckbox.Name = "muteCheckbox";
-            this.muteCheckbox.Size = new System.Drawing.Size(170, 24);
-            this.muteCheckbox.TabIndex = 5;
-            this.muteCheckbox.UseVisualStyleBackColor = true;
+            this.lastPingLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lastPingLabel.Location = new System.Drawing.Point(55, 180);
+            this.lastPingLabel.Name = "lastPingLabel";
+            this.lastPingLabel.Size = new System.Drawing.Size(195, 30);
+            this.lastPingLabel.TabIndex = 9;
+            this.lastPingLabel.Text = "label5";
+            this.lastPingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(256, 150);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 30);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "הפסקה בין פינגים\r\n(שניות)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pingIntervalBox
+            // 
+            this.pingIntervalBox.Enabled = false;
+            this.pingIntervalBox.Location = new System.Drawing.Point(177, 153);
+            this.pingIntervalBox.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.pingIntervalBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.pingIntervalBox.Name = "pingIntervalBox";
+            this.pingIntervalBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.pingIntervalBox.Size = new System.Drawing.Size(73, 23);
+            this.pingIntervalBox.TabIndex = 11;
+            this.pingIntervalBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // DeviceInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 328);
+            this.ClientSize = new System.Drawing.Size(619, 414);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.deviceNameBox);
             this.Controls.Add(this.eventsGroupBox);
@@ -241,6 +310,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pingIntervalBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,5 +333,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox muteCheckbox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lastPingLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown pingIntervalBox;
     }
 }

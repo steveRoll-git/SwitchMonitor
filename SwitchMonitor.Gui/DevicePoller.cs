@@ -64,7 +64,8 @@ namespace SwitchMonitor
 
         public static async Task<List<DeviceStatusChange>> PingAllDevicesAsync()
         {
-            var pingTasks = devices.Select(d => PingDeviceAsync(d));
+            var pingTasks = devices.Where(d => (DateTime.Now - (d.LastPing ?? DateTime.Now)).Seconds >= d.PingInterval)
+                                   .Select(d => PingDeviceAsync(d));
             var results = await Task.WhenAll(pingTasks);
             return results.ToList();
         }
@@ -79,6 +80,7 @@ namespace SwitchMonitor
             }
 
             RefreshDevices();
+
             using (var pinger = new Ping())
             {
                 while (true)
@@ -104,6 +106,13 @@ namespace SwitchMonitor
 
                         var currentStatus = result.Status;
 
+                        device.LastPing = DateTime.Now;
+
+                        if (currentStatus == DeviceStatus.Up)
+                        {
+                            device.LastSuccessfulPing = DateTime.Now;
+                        }
+
                         if (currentStatus != lastStatuses[device.Address])
                         {
                             var newEvent = new Event(DateTime.Now, device, currentStatus);
@@ -112,12 +121,13 @@ namespace SwitchMonitor
                                 newEvent.Acknowledge();
                             }
                             lock (Database.Lock) using (var db = Database.GetConnection())
-                                {
                                     db.Insert(newEvent);
-                                    lastStatuses[device.Address] = currentStatus;
-                                    statusChangeQueue.Enqueue(result);
-                                }
+                            lastStatuses[device.Address] = currentStatus;
+                            statusChangeQueue.Enqueue(result);
                         }
+
+                        lock (Database.Lock) using (var db = Database.GetConnection())
+                                db.Update(device);
                     }
 
                     Thread.Sleep(pollInterval);

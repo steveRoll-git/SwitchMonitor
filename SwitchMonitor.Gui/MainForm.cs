@@ -132,7 +132,7 @@ namespace SwitchMonitor
 
         private void addDeviceMenuItem_Click(object sender, EventArgs e)
         {
-            OpenDeviceInfo(new Device(), true);
+            OpenDeviceInfo(new Device() { PingInterval = 1 }, true);
         }
 
         private void statusChangeTimer_Tick(object sender, EventArgs e)
