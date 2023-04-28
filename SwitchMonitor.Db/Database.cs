@@ -104,9 +104,16 @@ namespace SwitchMonitor.Db
                     {
                         if (device.LastPing == null)
                         {
-                            var lastEvent =
                             device.LastPing = db.Table<Event>()
                                                           .Where(e => e.DeviceId == device.Id)
+                                                          .OrderByDescending(e => e.Time)
+                                                          .FirstOrDefault()?.Time;
+                        }
+
+                        if (device.LastSuccessfulPing == null)
+                        {
+                            device.LastSuccessfulPing = db.Table<Event>()
+                                                          .Where(e => e.DeviceId == device.Id && e.Status == DeviceStatus.Up)
                                                           .OrderByDescending(e => e.Time)
                                                           .FirstOrDefault()?.Time;
                         }
