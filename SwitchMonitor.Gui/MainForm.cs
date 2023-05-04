@@ -120,11 +120,14 @@ namespace SwitchMonitor
 
         private void OpenDeviceInfo(Device device, bool isNew = false)
         {
-            Device actualDevice;
-            lock (Database.Lock) using (var db = Database.GetConnection())
-                {
-                    actualDevice = db.Find<Device>(device.Id);
-                }
+            Device actualDevice = device;
+            if (!isNew)
+            {
+                lock (Database.Lock) using (var db = Database.GetConnection())
+                    {
+                        actualDevice = db.Find<Device>(device.Id);
+                    }
+            }
             var form = new DeviceInfoForm(actualDevice, isNew);
             form.ShowDialog(this);
             if (form.ChangesHappened)
