@@ -23,6 +23,8 @@ namespace SwitchMonitor.Db
 
         public string Description { get; set; }
 
+        public int FailedPings { get; set; }
+
         public DateTime? LastPing { get; set; }
 
         public DateTime? LastSuccessfulPing { get; set; }

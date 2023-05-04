@@ -22,6 +22,12 @@ namespace SwitchMonitor
         /// </summary>
         public static int pollInterval = 1000;
 
+        /// <summary>
+        /// How many consecutive failed pings a device should have before
+        /// marking it as Down.
+        /// </summary>
+        public static int failedPingsBeforeEvent = 3;
+
         static List<Device> devices;
         static readonly Dictionary<string, DeviceStatus> lastStatuses = new Dictionary<string, DeviceStatus>();
 
@@ -111,19 +117,27 @@ namespace SwitchMonitor
                         if (currentStatus == DeviceStatus.Up)
                         {
                             device.LastSuccessfulPing = DateTime.Now;
+                            device.FailedPings = 0;
                         }
 
                         if (currentStatus != lastStatuses[device.Address])
                         {
-                            var newEvent = new Event(DateTime.Now, device, currentStatus);
-                            if (device.Mute)
+                            if (currentStatus == DeviceStatus.Down && device.FailedPings < failedPingsBeforeEvent)
                             {
-                                newEvent.Acknowledge();
+                                device.FailedPings++;
                             }
-                            lock (Database.Lock) using (var db = Database.GetConnection())
-                                    db.Insert(newEvent);
-                            lastStatuses[device.Address] = currentStatus;
-                            statusChangeQueue.Enqueue(result);
+                            else
+                            {
+                                var newEvent = new Event(DateTime.Now, device, currentStatus);
+                                if (device.Mute)
+                                {
+                                    newEvent.Acknowledge();
+                                }
+                                lock (Database.Lock) using (var db = Database.GetConnection())
+                                        db.Insert(newEvent);
+                                lastStatuses[device.Address] = currentStatus;
+                                statusChangeQueue.Enqueue(result);
+                            }
                         }
 
                         lock (Database.Lock) using (var db = Database.GetConnection())
